@@ -68,6 +68,22 @@ Measured with `gpt-4.1-mini` using the 26-case eval set, including three domesti
 | V2 | 96% | 62% | 96% | 58% (15/26) | 43% (6/14) | 60% (3/5) | 86% (6/7) | 1 |
 | V3 | 100% | 100% | 100% | 100% (26/26) | 100% (14/14) | 100% (5/5) | 100% (7/7) | 0 |
 
+## Held-out results
+
+This separate 8-case set covers less-tested policy sections and four topics absent from the manual. The prompts were unchanged for these runs. To reproduce them, use `--dataset holdout`:
+
+```bash
+python -m src.run_evals --version v1 --dataset holdout
+python -m src.run_evals --version v2 --dataset holdout
+python -m src.run_evals --version v3 --dataset holdout
+```
+
+| Version | Correctness | Citation | Refusal | Overall | Direct (3) | Reasoning (1) | Traps (4) | Trap hallucinations |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| V1 | 100% | 100% | 100% | 100% (8/8) | 100% | 100% | 100% | 0 |
+| V2 | 100% | 50% | 100% | 50% (4/8) | 0% | 0% | 100% | 0 |
+| V3 | 100% | 100% | 100% | 100% (8/8) | 100% | 100% | 100% | 0 |
+
 ## What to tell your exec sponsor
 
 “We now have a repeatable measurement gate for the Policy Copilot: it checks whether answers match policy, cite the supporting section, and decline requests outside the manual. The measured results show where the assistant is reliable and where controls or source coverage still need work, giving us a concrete basis for a limited, monitored rollout decision rather than relying on a persuasive demo.”
